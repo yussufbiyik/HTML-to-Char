@@ -26,15 +26,15 @@ try:
     x=1
     result.write("char *html = ")
     for line in targetFile:
-        if line != "\n":
-            editedLine = line.replace("\"","\'")
+        strippedLine = line.strip()
+        if strippedLine != "":
+            editedLine = strippedLine.replace("\"","\'")
             result.write("\""+editedLine)
             currentLine = result.tell()
+            result.seek(currentLine)
             if x == fileLength:
-                result.seek(currentLine)
                 result.write("\";\n")
             else:
-                result.seek(currentLine-2)
                 result.write("\"\n")
             print("Line completed.")
             x = x+1  
